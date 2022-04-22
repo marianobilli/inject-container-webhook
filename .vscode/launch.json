@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: FastAPI",
+            "cwd": "${workspaceFolder}/src",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "main:app"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "env": {
+                "LOG_LEVEL": "DEBUG",
+                "NODE_LABELS": "beta.kubernetes.io/instance-type,node.kubernetes.io/instance-type,eks.amazonaws.com/capacityType,topology.kubernetes.io/zone"
+            }
+        }
+    ]
+}
