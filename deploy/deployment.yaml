@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: inject-container-webhook
-          image: inject-container-webhook:latest
+          image: ghcr.io/marianobilli/inject-container-webhook:latest
           ports:
             - containerPort: 8443
           resources:
