@@ -1,14 +1,14 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: inject-container-webhook
+  name: webhook-project
   namespace: tools
   labels:
     component: mutating-controller
   annotations:
-    cert-manager.io/inject-ca-from: tools/inject-container-webhook-tls
+    cert-manager.io/inject-ca-from: tools/webhook-project
 webhooks:
-  - name: inject-container-webhook.cluster.local
+  - name: webhook-project.cluster.local
     admissionReviewVersions:
       - v1
     sideEffects: None
@@ -18,7 +18,7 @@ webhooks:
         use: dsproject
     clientConfig:
       service:
-        name: inject-container-webhook
+        name: webhook-project
         namespace: tools
         path: /mutate/pods
         port: 8443

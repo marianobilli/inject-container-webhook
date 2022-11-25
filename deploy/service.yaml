@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: inject-container-webhook
+  name: webhook-project
   namespace: tools
 spec:
   selector:
-    app: inject-container-webhook
+    app: webhook-project
   ports:
     - protocol: TCP
       port: 8443

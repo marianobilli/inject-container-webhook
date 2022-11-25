@@ -1,6 +1,7 @@
-# Inject Container Webhook
+# Webhook Project
 
-Based on configmaps it will inject Init or regular containers to the pod
+For pods created in namespaces with label use=dsproject, it will add a toleration and label for that project.
+This allows the pod to run in a dedicated project none. (its a project node as the ec2 instance will have the tag project=<projectname>)
 
 ## Pre-requisites
 
@@ -14,7 +15,6 @@ Apply customizations to the yaml files inside the **deploy** folder as needed
 2. Modify the `certificate.yaml` file as needed
    1. Install certmanager and apply the `selfsigned.yaml` (if `selfsigned-issuer` doesn't exist)
    2. Alternatively setup a ClusterIssuer/Issuer using [cert-manager](https://cert-manager.io/docs/concepts/issuer/) and edit the `certificate.yaml` with customizations
-   3. Replace `tools` with alternative namespace if installing elsewhere
 3. Modify the `deployment.yaml` file as needed with the following options
    1. Change environment variables as needed (see [Available Variables below](#available-variables))
    2. Change the replica and resources values as needed depending on how many targeted pods your evironment might have (the defaults are probably fine for anything under 10k)
@@ -35,8 +35,6 @@ kubectl apply -f service.yaml
 kubectl apply -f configmap.yaml
 kubectl apply -f mutatingwebhook.yaml
 ```
-
-s
 
 ## Available Variables
 

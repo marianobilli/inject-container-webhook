@@ -3,14 +3,15 @@ FROM python:3.9-slim-bullseye
 # port for webhook api
 EXPOSE 8443/tcp
 
-# setup app directory with code/user
+# setup app directory
 WORKDIR /app
 RUN adduser -u 1001 webapp -q && chown webapp:webapp /app
-COPY --chown=webapp:webapp src/* /app
 
 # get required dependencies
 COPY requirements.txt /app
 RUN pip3 install -r /app/requirements.txt && chown webapp:webapp `which uvicorn`
+
+COPY --chown=webapp:webapp src/* /app
 
 # run as non-root user
 USER webapp

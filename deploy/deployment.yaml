@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: inject-container-webhook
+  name: webhook-project
   namespace: tools
   labels:
-    app: inject-container-webhook
+    app: webhook-project
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: inject-container-webhook
+      app: webhook-project
   template:
     metadata:
       labels:
-        app: inject-container-webhook
+        app: webhook-project
     spec:
       containers:
-        - name: inject-container-webhook
-          image: inject-container-webhook:latest
+        - name: webhook-project
+          image: artifactory.cicd.ocean.pmicloud.biz/docker/doplat/webhook-project:latest
           ports:
             - containerPort: 8443
           resources:
@@ -29,13 +29,10 @@ spec:
               memory: 100Mi
           env:
             - name: LOG_LEVEL
-              value: DEBUG
+              value: INFO
           volumeMounts:
             - name: certificate
               mountPath: /app/ssl
-              readOnly: true
-            - name: inject-container-webhook-config
-              mountPath: /app/config
               readOnly: true
           livenessProbe:
             httpGet:
@@ -50,14 +47,6 @@ spec:
       volumes:
         - name: certificate
           secret:
-            secretName: inject-container-webhook-tls
-        - name: inject-container-webhook-config
-          configMap:
-            name: inject-container-webhook
-            items:
-              - key: initcontainers.yaml
-                path: initcontainers.yaml
-              - key: sidecarcontainers.yaml
-                path: sidecarcontainers.yaml
-      serviceAccountName: inject-container-webhook
+            secretName: webhook-project
       hostNetwork: true
+      serviceAccountName: webhook-project

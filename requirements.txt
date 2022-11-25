@@ -1,3 +1,4 @@
-uvicorn==0.17.6
-fastapi==0.75.2
+uvicorn==0.20.0
+fastapi==0.87.0
 jsonpatch==1.32
+kubernetes==25.3.0
